@@ -1,0 +1,125 @@
+<form [formGroup]="ownerForm" class="example-form">
+  <mat-card>
+    <mat-card-actions class="flex-container">
+      <mat-form-field class="example-full-width f33" appearance="fill">
+        <mat-label>Фамилия</mat-label>
+        <input matInput formControlName="aLastName">
+        <mat-error
+          *ngIf="ownerForm.controls['aLastName']?.touched && ownerForm.controls['aLastName']?.errors?.required">
+          <strong>Введите фамилию</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width f33" appearance="fill">
+        <mat-label>Имя</mat-label>
+        <input matInput formControlName="aFirstName">
+        <mat-error
+          *ngIf="ownerForm.controls['aFirstName']?.touched && ownerForm.controls['aFirstName']?.errors?.required">
+          <strong>Введите имя</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width f33" appearance="fill">
+        <mat-label>Отчество</mat-label>
+        <input matInput formControlName="aMiddleName">
+        <mat-error
+          *ngIf="ownerForm.controls['aMiddleName']?.touched && ownerForm.controls['aMiddleName']?.errors?.required">
+          <strong>Введите отчество</strong>
+        </mat-error>
+      </mat-form-field>
+    </mat-card-actions>
+  </mat-card>
+  <br>
+</form>
+
+<form [formGroup]="form">
+  <mat-card>
+    <mat-card-title>Автомобили</mat-card-title>
+    <mat-card-actions>
+      <table mat-table formArrayName="carProperties" [dataSource]="dataSource" class="example-full-width"
+             cellspacing="0">
+        <ng-container matColumnDef="carNumber">
+          <th mat-header-cell *matHeaderCellDef>Номер</th>
+          <td mat-cell *matCellDef="let element let elementIndex = index" [formGroupName]="elementIndex">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input matInput formControlName="carNumber"/>
+              <mat-error
+                *ngIf="carProperties.controls[elementIndex].get('carNumber')?.touched && carProperties.controls[elementIndex].get('carNumber')?.errors?.required">
+                <strong>Введите Номер</strong>
+              </mat-error>
+              <mat-error
+                *ngIf="carProperties.controls[elementIndex].get('carNumber')?.touched && carProperties.controls[elementIndex].get('carNumber')?.errors?.pattern">
+                Пример ХХ1111ХХ
+              </mat-error>
+              <mat-error
+                *ngIf="carProperties.controls[elementIndex].get('carNumber')?.touched && carProperties.controls[elementIndex].get('carNumber')?.errors?.invalidCarNumber">
+                Такой номер уже есть в базе
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="brand">
+          <th mat-header-cell *matHeaderCellDef>Марка</th>
+          <td mat-cell *matCellDef="let element let elementIndex = index" [formGroupName]="elementIndex">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input matInput formControlName="brand"/>
+              <mat-error
+                *ngIf="carProperties.controls[elementIndex].get('brand')?.touched && carProperties.controls[elementIndex].get('brand')?.errors?.required">
+                <strong>Введите марку автомобиля</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="model">
+          <th mat-header-cell *matHeaderCellDef>Модель</th>
+          <td mat-cell *matCellDef="let element let elementIndex = index" [formGroupName]="elementIndex">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input matInput formControlName="model"/>
+              <mat-error
+                *ngIf="carProperties.controls[elementIndex].get('model')?.touched && carProperties.controls[elementIndex].get('model')?.errors?.required">
+                <strong>Введите модель автомобиля</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="year">
+          <th mat-header-cell *matHeaderCellDef>Год выпуска</th>
+          <td mat-cell *matCellDef="let element let elementIndex = index" [formGroupName]="elementIndex">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input matInput formControlName="year"/>
+              <mat-error
+                *ngIf="carProperties.controls[elementIndex].get('year')?.touched && carProperties.controls[elementIndex].get('year')?.errors?.required">
+                <strong>Введите год выпуска автомобиля</strong>
+              </mat-error>
+              <mat-error
+                *ngIf="carProperties.controls[elementIndex].get('year')?.touched && (carProperties.controls[elementIndex].get('year')?.errors?.min || carProperties.controls[elementIndex].get('year')?.errors?.max)">
+                <strong> 1990 - Текущий</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element let elementIndex = index" [formGroupName]="elementIndex">
+            <button *ngIf="properties.length > 1" (click)="deleteCarProperty(elementIndex)" mat-fab color="warn"
+                    aria-label="Example icon button with a delete icon">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <div class="inline-block three-button">
+        <div *ngIf="viewType !== 'view'" class="inline-block">
+          <button (click)="addNewProperty()" mat-raised-button color="primary">Добавить</button>
+          <button mat-raised-button color="primary" (click)="saveChanges()">Сохранить</button>
+        </div>
+        <button mat-button (click)="goBack()">Назад</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</form>

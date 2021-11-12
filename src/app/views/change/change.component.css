@@ -1,0 +1,51 @@
+.example-form {
+  /* min-width: 150px; */
+  /* max-width: 500px; */
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.flex-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.f33{
+  width: 33%;
+}
+
+.mat-header-cell {
+  padding: 0 8px 0 8px;
+}
+
+.mat-cell {
+  padding: 15px 8px 0 8px;
+}
+
+.mat-column-action {
+  padding-top: 0;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.three-button {
+  margin-top: 10px;
+}
+
+.mat-fab{
+
+}
+
+.mat-card-title{
+  padding-left: 15px;
+}
+
+
+.three-button{
+  padding-left: 24px;
+}
